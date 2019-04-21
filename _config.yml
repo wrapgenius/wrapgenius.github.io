@@ -4,17 +4,17 @@ gems:
   - jekyll-paginate
 
 # Site settings
-title: "Coin Flips and Correlated Noise"
+title: "Correlated Noise"
 description: > # this means to ignore newlines until "email:"
-   Coin Flips and Correlated Noise 
+   Coin Flips, Covariances, and Common Sense in Baseball
 
-email: a-mail@mail.mail
+email: marcoviero@protonmail.com
 #blog logo
 logo: "/assets/images/df_logo.jpg"
 float_logo: true # true, false (default)
 
 # blog cover
-cover: "/assets/images/DSCF1521.JPG"
+cover: "/assets/images/Tigers.jpg"
 
 name: 'Marco Viero'
 author: 'wrapgenius'
