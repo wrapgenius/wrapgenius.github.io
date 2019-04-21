@@ -3,7 +3,7 @@ layout: post
 title:  "Streaks or Luck?"
 date:  2019-04-20
 categories: baseball
-tags: featured
+#tags: featured
 image: /assets/article_images/2019-04-21-streaks-or-luck/cleveland_streak.jpg
 permalink: /:categories/:title
 ---

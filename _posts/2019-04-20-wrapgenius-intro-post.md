@@ -3,7 +3,7 @@ layout: post
 title:  "Introduction"
 date:  2019-04-20
 categories: overhead
-tags: featured
+#tags: featured
 image: /assets/article_images/2019-04-20-wrapgenius-intro-post/Plant.JPG
 permalink: /:categories/:title
 ---
