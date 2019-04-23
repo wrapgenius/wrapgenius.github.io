@@ -205,11 +205,10 @@ plt.ylabel('Number of Teams')
 plt.show()
 ```
 
+![png](/assets/images/Win_Streak_Probabilities_files/Win_Streak_Probabilities_19_0.png)
+
 Plotting it, we find reality looks a lot like theory. However, we also find slight excess of teams with winning streaks of 5 or fewer, and much larger deficit of teams with winning streaks greater than 5.  In fact no team has a winning streak of more than 12, where in theory there should have been closer to 3.  <br>
 If anything, this contradicts my intuition that streaks are special --- the lack of streaks is the actual surprise.
-
-
-![png](/assets/images/Win_Streak_Probabilities_files/Win_Streak_Probabilities_19_0.png)
 
 
 We can do the same for losing streaks.
@@ -241,6 +240,6 @@ plt.ylabel('Number of Teams')
 plt.show()
 ```
 
-At last the human element presents itself. There are many fewer teams with losing streaks greater than 4 and above than predicted by the biniomal distribution alone.  Lose a few games and you can be sure some changes will occur; this may be evidence that they work!
-
 ![png](/assets/images/Win_Streak_Probabilities_files/Win_Streak_Probabilities_23_0.png)
+
+At last the human element presents itself. There are many fewer teams with losing streaks greater than 4 and above than predicted by the biniomal distribution alone.  Lose a few games and you can be sure some changes will occur; this may be evidence that they work!
