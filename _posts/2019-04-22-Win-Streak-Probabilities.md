@@ -2,7 +2,7 @@
 layout: post
 mathjax: true
 title:  "Streaks or Luck?"
-date:  2019-04-20
+date:  2019-04-22
 categories: baseball
 #tags: featured
 image: /assets/article_images/2019-04-21-streaks-or-luck/cleveland_streak.jpg
