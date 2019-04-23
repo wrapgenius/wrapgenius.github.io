@@ -35,7 +35,7 @@ sys.setrecursionlimit(20000)
 
 Next, since we want to know how unlikely are long winning streaks, we need to estimate what those odds are in theory, from simple statistics.
 We model the odds of any one win as a weighted coin flip, where the weight is simply the team's winning percentage. <br>
-Here I'll use a recursive algorithm to estimate the probability of a streak of length *winStreak during a season *numGames long, for a team whose season-long record is *winPercent. <br>
+Here I'll use a recursive algorithm to estimate the probability of a streak of length *winStreak* during a season *numGames* long, for a team whose season-long record is *winPercent*. <br>
 Naturally, we expect the probability to increase for:
 - shorter streaks
 - better teams
