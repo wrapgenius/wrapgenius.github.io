@@ -35,7 +35,7 @@ sys.setrecursionlimit(20000)
 
 Next, since we want to know how unlikely are long winning streaks, we need to estimate what those odds are in theory, from simple statistics.
 We model the odds of any one win as a weighted coin flip, where the weight is simply the team's winning percentage. <br>
-Here I'll use a recursive algorithm to estimate the probability of a streak of length winStreak during a season numGames long, for a team whose season-long record is winPercent. <br>
+Here I'll use a recursive algorithm to estimate the probability of a streak of length *winStreak during a season *numGames long, for a team whose season-long record is *winPercent. <br>
 Naturally, we expect the probability to increase for:
 - shorter streaks
 - better teams
@@ -78,7 +78,6 @@ def consecutive(data, stepsize=0):
 
 Define a function to group streaks by wins and losses.
 
-
 ```python
 def group_streaks(sched):
     all_streaks = consecutive(sched)
@@ -95,7 +94,6 @@ def group_streaks(sched):
     return [wins, loss]    
 ```
 
-
 ```python
 def winning_percentage(streaks):
     wp = {}
@@ -109,7 +107,6 @@ def winning_percentage(streaks):
 
 ## Download Data
 The following files were grabbed from Baseball Reference. I store them in directories categorized by year, as well as Al and NL.
-
 
 ```python
 path_files = '/data/baseball/Baseball-Reference/schedule_results/2018/'
@@ -197,13 +194,7 @@ for t in streaks:
     cum_win_streaks[x[cind_non_zero]] += 1
     for p in np.arange(streak_size):
         win_predict[p] += probability_of_streak(games_played[t], p+1, win_percent[t])
-```
 
-Plotting it, we find reality looks a lot like theory. However, we also find slight excess of teams with winning streaks of 5 or fewer, and much larger deficit of teams with winning streaks greater than 5.  In fact no team has a winning streak of more than 12, where in theory there should have been closer to 3.  <br>
-If anything, this contradicts my intuition that streaks are special --- the lack of streaks is the actual surprise.
-
-
-```python
 figure(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
 plt.step(np.arange(streak_size)+1,cum_win_streaks,linestyle = '--',label='Actual')
 plt.step(np.arange(streak_size)+1,np.round(win_predict),label='Theory')
@@ -213,6 +204,9 @@ plt.xlabel('W - Winning Streak Length')
 plt.ylabel('Number of Teams')
 plt.show()
 ```
+
+Plotting it, we find reality looks a lot like theory. However, we also find slight excess of teams with winning streaks of 5 or fewer, and much larger deficit of teams with winning streaks greater than 5.  In fact no team has a winning streak of more than 12, where in theory there should have been closer to 3.  <br>
+If anything, this contradicts my intuition that streaks are special --- the lack of streaks is the actual surprise.
 
 
 ![png](/assets/images/Win_Streak_Probabilities_files/Win_Streak_Probabilities_19_0.png)
@@ -236,12 +230,7 @@ for t in streaks:
     cum_lose_streaks[x[cind_non_zero]] += 1
     for p in np.arange(streak_size):
         lose_predict[p] += probability_of_streak(games_played[t], p+1, lose_percent[t])
-```
 
-At last the human element presents itself. There are many fewer teams with losing streaks greater than 4 and above than predicted by the biniomal distribution alone.  Lose a few games and you can be sure some changes will occur; this may be evidence that they work!
-
-
-```python
 figure(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
 plt.step(np.arange(streak_size)+1,cum_lose_streaks,linestyle = '--',label='Actual')
 plt.step(np.arange(streak_size)+1,lose_predict,label='Theory')
@@ -252,5 +241,6 @@ plt.ylabel('Number of Teams')
 plt.show()
 ```
 
+At last the human element presents itself. There are many fewer teams with losing streaks greater than 4 and above than predicted by the biniomal distribution alone.  Lose a few games and you can be sure some changes will occur; this may be evidence that they work!
 
 ![png](/assets/images/Win_Streak_Probabilities_files/Win_Streak_Probabilities_23_0.png)
