@@ -177,8 +177,8 @@ for t in streaks:
     ('ARI', '[10 10  2  1  0  0]')
 
 
-Looks like a lot of long winning streaks.  But how does that compare to what the Binomial distribution predicts? <br>
-To answer that, we count how many teams have had streaks greater than N, from N = 1 to 15, i
+Looks like a lot of long winning streaks.  But how does that compare to what theory predicts? <br>
+To answer that, we count how many teams have had streaks greater than N, from N = 1 to 15. 
 
 
 ```python
