@@ -1,7 +1,9 @@
 # Build settings
-gems:
+#gems:
+plugins:
   - jemoji
   - jekyll-paginate
+  - jekyll-jupyter-notebook
 
 # Site settings
 title: "Correlated Noise"
