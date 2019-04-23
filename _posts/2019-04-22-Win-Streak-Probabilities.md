@@ -178,7 +178,7 @@ for t in streaks:
 
 
 Looks like a lot of long winning streaks.  But how does that compare to what theory predicts? <br>
-To answer that, we count how many teams have had streaks greater than N, from N = 1 to 15. 
+To answer that, we count how many teams have had streaks greater than N, from N = 1 to 15.
 
 
 ```python
@@ -237,7 +237,7 @@ for t in streaks:
         lose_predict[p] += probability_of_streak(games_played[t], p+1, lose_percent[t])
 ```
 
-At last the human element presents itself. There are much fewer teams with losing streaks greater than 4 and above than predicted by the biniomal distribution alone.  Lose a few games and you can be sure some changes will occur; this may be evidence that they work!
+At last the human element presents itself. There are many fewer teams with losing streaks greater than 4 and above than predicted by the biniomal distribution alone.  Lose a few games and you can be sure some changes will occur; this may be evidence that they work!
 
 
 ```python
