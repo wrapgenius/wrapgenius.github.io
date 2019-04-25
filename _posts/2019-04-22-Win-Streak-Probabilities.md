@@ -9,13 +9,13 @@ image: /assets/article_images/2019-04-21-streaks-or-luck/cleveland_streak.jpg
 permalink: /:categories/:year/:month/:day/:title
 ---
 
-When a team goes on an extended winning streak, my gut tells me that something so unlikely is happening that it *proves* sports contests must be more than just weighted random number generators.  <br>
-But is that true?  In an attempt to answer that question, I work out the probabilities of winning streaks of different lengths given a winning percentage, and estimate that for each team given their (2018) records.  I compare those odds to the actual lengths of winning streaks for that season. <br>
+Imagine flipping a coin and getting 10 heads in a row.  You might wonder.  How about 15?  Something is definitely up, right?  
+So when a team goes on an extended winning streak, my gut tells me that something so unlikely is happening that it *proves* sports contests must be more than just (weighted) coin flips.  <br>
+But is that true?  To convince myself, I work out the probabilities of winning streaks of different lengths, where games are modeled as weighted coin flips, occurring during a single season.  I use each team's actual winning percentage during one season (here 2018) as the weight. I then compare those odds to the actual lengths of winning streaks that occured during that season. <br>
 I admit, what I find is a little surprising.
 
 ## Python packages
 We start by importing some standard Python packages:
-
 
 ```python
 from __future__ import division
@@ -41,7 +41,6 @@ Naturally, we expect the probability to increase for:
 - better teams
 - longer seasons
 
-
 ```python
 def probability_of_streak(numGames, winStreak, winPercent, saved = None):
 
@@ -65,7 +64,6 @@ def probability_of_streak(numGames, winStreak, winPercent, saved = None):
 ```
 
 Define a function splits the season into arrays representing winning streaks.  
-
 
 ```python
 def consecutive(data, stepsize=0):
@@ -116,7 +114,6 @@ leagues    = ['AL','NL']
 We loop through each Leage and Team, storing Wins and Losses as W and L in a Pandas Dataframe.  Additionally, we convert walk-off wins and losses ('W-wo', 'L-wo') to 'W' and 'L'. <br>
 Lastly, we store streaks for each team in a streaks dictionary.
 
-
 ```python
 streaks = {}
 for league in leagues:
@@ -132,9 +129,7 @@ for league in leagues:
         streaks[team] = group_streaks(a)
 ```
 
-
 Lets look win streaks in the streaks dictionary. Beginning with 2 game win streaks, which are the most frequent, we see a rapid drop off, although more than half have had one long streak (greater than 5).
-
 
 ```python
 print('Team',str(np.arange(15)+2))
@@ -178,7 +173,6 @@ for t in streaks:
 Looks like a lot of long winning streaks.  But how does that compare to what theory predicts? <br>
 To answer that, we count how many teams have had streaks greater than N, from N = 1 to 15.
 
-
 ```python
 streak_size = 15
 win_percent, games_played = winning_percentage(streaks)
@@ -212,7 +206,6 @@ If anything, this contradicts my intuition that streaks are special --- the lack
 
 
 We can do the same for losing streaks.
-
 
 ```python
 streak_size = 15
