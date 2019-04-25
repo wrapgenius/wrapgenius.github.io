@@ -188,7 +188,11 @@ for t in streaks:
     cum_win_streaks[x[cind_non_zero]] += 1
     for p in np.arange(streak_size):
         win_predict[p] += probability_of_streak(games_played[t], p+1, win_percent[t])
+```
 
+Let's plot win streak length *W* vs. the number of teams that reached that threshold; in theory and reality.  We  expect all thirty teams to have had 2 game streaks, most to have had 3 game streaks, fewer to have 4 game streaks, and so on; how they track after that is when it gets interesting: if I was right and baseball is nothing like flipping a coin, theory should drop much more quickly than reality.   
+
+```
 figure(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
 plt.step(np.arange(streak_size)+1,cum_win_streaks,linestyle = '--',label='Actual')
 plt.step(np.arange(streak_size)+1,np.round(win_predict),label='Theory')
@@ -201,9 +205,8 @@ plt.show()
 
 ![png](/assets/images/Win_Streak_Probabilities_files/Win_Streak_Probabilities_19_0.png)
 
-Plotting it, we find reality looks a lot like theory. However, we also find slight excess of teams with winning streaks of 5 or fewer, and much larger deficit of teams with winning streaks greater than 5.  In fact no team has a winning streak of more than 12, where in theory there should have been closer to 3.  <br>
+Instead, we find reality looks a lot like theory! Moreover, while we find a *slight* excess of teams with winning streaks of 4 or fewer, we find a much larger deficit of teams with winning streaks greater than 6.  In fact no team has a winning streak of more than 12, where in theory there should have been closer to 3.  <br>
 If anything, this contradicts my intuition that streaks are special --- the lack of streaks is the actual surprise.
-
 
 We can do the same for losing streaks.
 
