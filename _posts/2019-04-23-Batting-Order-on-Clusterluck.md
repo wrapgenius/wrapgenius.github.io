@@ -30,7 +30,7 @@ import scipy
 from scipy.optimize import curve_fit
 import sys
 import scipy.stats as stats
-
+from matplotlib.pyplot import figure
 import matplotlib.pyplot as plt
 plt.style.use('seaborn')
 plt.tick_params(axis='x', colors='white')
@@ -390,12 +390,6 @@ def team_season_simulation(lineup, season_length = 162):
 
 ```python
 nsims = 5000
-n, bins, patches = plt.hist(leaderboard.OBP[(leaderboard.PA > pa_cut)], 'scott', alpha = 0.70)
-bin_centres = (bins[:-1] + bins[1:])/2
-p0 = [1., 0., 1.]
-coeff, var_matrix = curve_fit(gauss, bin_centres, n, p0=p0)
-
-N = stats.norm(loc=coeff[1], scale=coeff[2])
 
 td_streak_count = np.zeros(nsims)
 bu_streak_count = np.zeros(nsims)
@@ -405,7 +399,6 @@ bu_total_hits   = np.zeros(nsims)
 obp_model, coeffs_model = define_P(leaderboard)
 
 for i in np.arange(nsims):
-    #lineup = N.rvs(9)
     lineup = draw_lineup(obp_model)
     bottom_up = np.sort(lineup['OBP'])
     top_down  = np.sort(lineup['OBP'])[::-1]
