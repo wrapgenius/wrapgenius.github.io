@@ -281,11 +281,7 @@ test_OBP_Dist, test_coeff = define_P(leaderboard, lower_obp = lower_obp_cut, min
 test_lineup  = draw_lineup(test_OBP_Dist)
 ```
 
-    mean=0.3151772720894252
-    std=0.03900998389911308
-
 Next we'll confirm the real and modeled distributions look similar by overplotting their histograms.  
-
 
 ```python
 mean_obp, sigma = test_coeff[1], test_coeff[2]
