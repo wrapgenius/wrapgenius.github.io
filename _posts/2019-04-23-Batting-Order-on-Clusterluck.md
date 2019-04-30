@@ -414,12 +414,9 @@ for i in np.arange(nsims):
     mean=0.3151772720894252
     std=0.03900998389911308
 
-![png](/assets/images/batting_order_files/batting_order_30_1.png)
-
 ## Results
 First thing we'll look at is total number of times that a batter reached base in a season, for each simulation, for the bottom-up (green) and top-down (blue) lineups.  <br>
 As you'd expect, on average, lineups where the better batters come first and thus have more opportunities to bat, get on base more often.
-
 
 ```python
 td_sim['box'][1]
@@ -431,12 +428,9 @@ labels= ["Highest to Lowest OPB","Lowest to Highest OBP"]
 plt.legend(labels)
 ```
 
-
-![png](/assets/images/batting_order_files/batting_order_32_1.png)
-
+![png](/assets/images/batting_order_files/batting_order_32_0.png)
 
 Howver, plotting the difference we find the advantage is not huge, with the peaks of the distributions off by less than 40.  Or an extra on-base every 4 games.  
-
 
 ```python
 td_sim['box'][1]
@@ -462,7 +456,7 @@ plt.legend(labels)
 labels= ["Highest to Lowest OPB","Lowest to Highest OBP"]
 ```
 
-![png](/assets/images/batting_order_files/batting_order_36_0.png)
+![png](/assets/images/batting_order_files/batting_order_36_1.png)
 
 
 And that the difference in total number of streaks peaks at around 10.  
