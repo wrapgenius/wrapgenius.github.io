@@ -15,7 +15,7 @@ Here I show each step of the simulation, which includes:
 - drawing *lineups* of on-base percentages, drawn from a realistic distribution.
 - estimating whether the batter makes an out using Bernoulli function, then
 - simulating single games in the simplest way possible: 9 innings, 3 outs, on base moves everyone up one spot.
-- simulating entire seasons 2500 times.
+- simulating entire seasons 5000 times.
 
 ## Python packages
 We start by importing some standard Python packages:
@@ -227,19 +227,10 @@ leaderboard.head()
 </div>
 
 ## Define Simulation Functions
-Next, we define functions that get called by the simulations.  <br>
+Next, we define the functions that get called by the simulations.  <br>
 
-The function *gauss* is defined for fitting of Gaussians to histograms. <br>
-
-```python
-def gauss(x, *p):
-    A, mu, sigma = p
-    return A*np.exp(-(x-mu)**2/(2.*sigma**2))
-```
-
-We begin by defining a realistic distrubution of on-base percentages (OBPs), *define_P*,  to draw from in later funciton.  A simple solution adopted here is to fit a Gaussian to the OBPs found in *leaderboard*, i.e., the *actual* OPBs.
+We begin by constructing a realistic distrubution of on-base percentages (OBPs), *define_P*, to draw from later.  One way to do that is to simply fit a Gaussian to the OBPs found in *leaderboard*, i.e., the *actual* OPBs.
 Note, to make sure that the modeled lineup is not dominated by transient players, we define lower limits for OBP and minimum plate appearances (using stats.truncnorm) as 0.225 and 80, respectively.
-
 
 ```python
 def define_P(leaderboard, lower_obp = 0.225, min_plate_appearances = 80, year = 2018):
@@ -255,8 +246,15 @@ def define_P(leaderboard, lower_obp = 0.225, min_plate_appearances = 80, year = 
     return X, coeff
 ```
 
-We then define *draw_lineup* to build a lineup by calling *define_P*, i.e., randomly drawing OBPs for 9 players.
+The function *gauss* is used to fit Gaussians to histograms. <br>
 
+```python
+def gauss(x, *p):
+    A, mu, sigma = p
+    return A*np.exp(-(x-mu)**2/(2.*sigma**2))
+```
+
+We then define *draw_lineup* to build a lineup by calling *define_P*, i.e., randomly drawing OBPs for 9 players.
 
 ```python
 def draw_lineup(P):
@@ -264,7 +262,6 @@ def draw_lineup(P):
     lineup['OBP'] = P.rvs(9)
     return lineup
 ```
-
 Check that our distribution of OBPs that we draw a lineup from looks correct.  <br>
 For this simulation we'll define
 - Plate appearance lower limit (pa_cut) = 80
