@@ -24,9 +24,6 @@
     {% endif %}
   {% endif %}
 
-  {% if site.google_analytics and jekyll.environment == 'production' %}
-  {% include analytics.html%}
-  {% endif %}
 
   <meta property="og:site_name" content="{{ site.title }}" />
   <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}"/>
