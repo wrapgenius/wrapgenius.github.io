@@ -77,12 +77,9 @@ import pdb
       seaborn: 0.9.0
       scikit-learn: 0.21.2
 
-
-We use seaborn to improve the look of the figures, and matplotlib inline to see the figures in the cells.
-
 # Tools   
 
-#### Simulate Wins/Losses as weighted coin flip using the binomial distribution, where the mean is estimated using the win/loss records of the opposing teams.
+##### Simulate Wins/Losses as weighted coin flip using the binomial distribution, where the mean is estimated using the win/loss records of the opposing teams.
 
 
 ```python
@@ -100,8 +97,25 @@ def weighted_coin_flip(vt_truetalent, ht_truetalent, homefieldadv = 0.04, vt_nud
     return np.random.binomial(1, effective_weighted_probability, number_flips)
 ```
 
-#### Determine Standings for one season simulation, given schedule and previous records.
+##### Import Retrosheet Schedule.
 
+```python
+def import_retrosheet_schedule(year = 2016, retrosheet_path = '/data/baseball/Retrosheet/'):
+    '''Import Retrosheet schedule and store into a Pandas DataBase'''
+
+    #Check that file exists.  
+    file_retrosheet_schedule = '{0}SKED.TXT'.format(year)
+    os.path.isfile(retrosheet_path+file_retrosheet_schedule)
+
+    # Read CSV and name columns manually.
+    sched_df = pd.read_csv(path_retrosheet_schedule+file_retrosheet_schedule)
+    cols = ['date','num_games','day_of_week','vt','league_vt','game_number_vt','ht','league_ht','game_number_ht','time','postpone','makeupdate']
+    sched_df.columns = cols
+
+    return sched_df
+```
+
+##### Determine Standings for one season simulation, given schedule and previous records.
 
 ```python
 def single_season_standings(schedule, seasons = 1):
@@ -158,7 +172,7 @@ def single_season_standings(schedule, seasons = 1):
     return matchups
 ```
 
-#### Determine schedule, and implement nudge factors based on specified conditions, etc., if playing division rival, or inter-league.  
+##### Determine schedule, and implement nudge factors based on specified conditions, etc., if playing division rival, or inter-league.  
 
 
 ```python
@@ -221,7 +235,7 @@ class team_schedules:
         self.matchups = self.matchups.fillna(0)
 ```
 
-#### Use sqlite and the Lahman database to get prior estimates of team records.  
+##### Use sqlite and the Lahman database to get prior estimates of team records.  
 
 
 ```python
@@ -255,7 +269,7 @@ class team_wins:
         self.winning_percentage['true_talent'] = self.winning_percentage['W']/162.
 ```
 
-#### Put all the tools together in season simulator
+##### Put all the tools together in season simulator
 
 
 ```python
@@ -387,21 +401,6 @@ class simulate_season:
 ```
 
 
-```python
-def import_retrosheet_schedule(year = 2016, retrosheet_path = '/data/baseball/Retrosheet/'):
-    '''Import Retrosheet schedule and store into a Pandas DataBase'''
-
-    #Check that file exists.  
-    file_retrosheet_schedule = '{0}SKED.TXT'.format(year)
-    os.path.isfile(retrosheet_path+file_retrosheet_schedule)
-
-    # Read CSV and name columns manually.
-    sched_df = pd.read_csv(path_retrosheet_schedule+file_retrosheet_schedule)
-    cols = ['date','num_games','day_of_week','vt','league_vt','game_number_vt','ht','league_ht','game_number_ht','time','postpone','makeupdate']
-    sched_df.columns = cols
-
-    return sched_df
-```
 
 ## Check to see that the code does what it's supposed to by simulating 10 seasons.  
 Simulation requires four steps:
