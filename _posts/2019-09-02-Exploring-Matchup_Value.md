@@ -18,6 +18,8 @@ Thus, my intention is to investigate whether the odds of making the playoffs inc
 
 $^{\dagger}$ setting aside whether players will go for it; times change, attitudes adapt, case in point: openers.
 
+Jupyter notebook for this post can be found on [github](https://github.com/wrapgenius/correlated_noise_notebooks/blob/master/estimating_matchup_value_final.ipynb).
+
 ## Algorithm
 
 To quantify the effect of shifting weights on playoff odds, we need a way to simulate entire seasons simply and quickly, with enough simulations to separate signal from noise.
