@@ -5,8 +5,8 @@ plugins:
   - jekyll-paginate
   - jekyll-jupyter-notebook
 
-#theme: metaphor
-theme: minimal-mistakes-jekyll
+theme: metaphor
+#theme: minimal-mistakes-jekyll
 
 # Site settings
 title: "Correlated Noise"
