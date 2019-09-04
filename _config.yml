@@ -11,8 +11,7 @@ theme: metaphor
 # Site settings
 title: "Correlated Noise"
 description: > # this means to ignore newlines until "email:"
-   Coin Flips, Covariances, and Common Sense in Baseball <br>
-   Find Jupyter Notebooks for every post at <a href="https://github.com/wrapgenius/correlated_noise_notebooks/">github</a>
+   Coin Flips, Covariances, and Common Sense in Baseball
 
 email: marcoviero@protonmail.com
 #blog logo
