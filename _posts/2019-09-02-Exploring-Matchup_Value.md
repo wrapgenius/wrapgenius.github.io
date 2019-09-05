@@ -1033,7 +1033,7 @@ print("""
 
 
 
-![png](/assets/images/estimating_matchup_value_final_files/estimating_matchup_value_final_34_1.png)
+![png](/assets/images/estimating_matchup_value_final_files/estimating_matchup_value_final_52_1.png)
 
 
 ### Check change in probability of Toronto winning the division.  
@@ -1063,7 +1063,7 @@ print("""
 
 
 
-![png](/assets/images/estimating_matchup_value_final_files/estimating_matchup_value_final_35_1.png)
+![png](/assets/images/estimating_matchup_value_final_files/estimating_matchup_value_final_54_1.png)
 
 
 ### Compare odds of making the playoff by winning the division or winning the wild card.
