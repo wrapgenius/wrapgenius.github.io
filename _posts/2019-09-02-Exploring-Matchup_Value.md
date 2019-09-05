@@ -1084,22 +1084,17 @@ plt.xticks(nudge_vals);
 plt.legend(['Playoff Appearances', 'Division Wins', 'Wildcard Wins']);
 plt.title(nudge_team+' Playoff Probabilities');
 print("""
-    Toronto's playoff odds rise {0:0.0f}%, from {1:.2f} to {2:.2f}, which is roughly
-    similar to the odds of winning the division, which rise from {3:.2f} to {4:.2f}.
-    Wildcard appearances, on the other hand, decrease as more divisions are won, which
-    is the result of both the extra beating on wildcard contenders like Baltimore, as
-    well as the decrease in strength of Toronto as an opponent outside of their division.  
-    """.format((y_playoff_appearance[-1]-y_playoff_appearance[0])*100,y_playoff_appearance[0],y_playoff_appearance[-1],y_division_wins[0],y_division_wins[-1]))
+    Toronto's playoff odds rise {0:0.0f}%, from {1:.2f} to {2:.2f}. Wildcard appearances,
+    on the other hand, decrease as more divisions are won, which is exacerbated by both
+    the extra beating on wildcard contenders like Baltimore, as well as the decrease in
+    strength of Toronto as an opponent outside of their division.   
+    """.format((y_playoff_appearance[-1]-y_playoff_appearance[0])*100,y_playoff_appearance[0],y_playoff_appearance[-1]))
 ```
 
-
-        Toronto's playoff odds rise 4%, from 0.51 to 0.56, which is roughly
-        similar to the odds of winning the division, which rise from 0.26 to 0.31.
-        Wildcard appearances, on the other hand, decrease as more divisions are won, which
-        is the result of both the extra beating on wildcard contenders like Baltimore, as
-        well as the decrease in strength of Toronto as an opponent outside of their division.  
-
-
+        Toronto's playoff odds rise 5%, from 0.51 to 0.55. Wildcard appearances,
+        on the other hand, decrease as more divisions are won, which is  exacerbated by both both
+        the extra beating on wildcard contenders like Baltimore, as well as the decrease in
+        strength of Toronto as an opponent outside of their division.
 
 
 ![png](/assets/images/estimating_matchup_value_final_files/estimating_matchup_value_final_36_1.png)
