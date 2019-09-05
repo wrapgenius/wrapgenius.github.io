@@ -11,14 +11,12 @@ permalink: /:categories/:year/:month/:day/:title
 
 
 As a fan of soccer it is accepted that starters will be rotated/rested to keep the best players fresh for the more *important* matches.  In soccer those are easier to define: some cup games are much less important than say, fighting for a top four finish, or advancing in the Champions League. <br>
-So what about baseball? A MLB season is long, and each game could in theory last forever.  Players work six days a week for six (or seven) months, usually only missing days for injuries. But are some matchups more important than others, and is there any benefit in resting players to be fresh for those games$^{\dagger}$?
+So what about baseball? A MLB season is long, and each game could in theory last forever.  Players work six days a week for six (or seven) months, usually only missing days for injuries. But are some matchups more important than others, and is there any benefit in resting players to be fresh for those games?
 To answer that, I put together a simple(ish) simulation to look for improvement in playoff odds for teams that stack their chances of winning when playing teams in their division.  
 I start with the assumption that outcomes are well approximated as weighted coin flips, where the weight is a combination of the win/loss record of the teams in question, plus a nudge factor that is positive against division rivals, a little less positive against league rivals, and negative in interleague, with the sum of all nudges equal to zero. <br>
 Thus, my intention is to investigate whether the odds of making the playoffs increases if we manipulate the odds of winning "high value" games by nudging their outcomes, and see if this might be a good strategy.
 
-$^{\dagger}$ setting aside whether players will go for it; times change, attitudes adapt, case in point: openers.
-
-Jupyter notebook for this post can be found on [github](https://github.com/wrapgenius/correlated_noise_notebooks/blob/master/estimating_matchup_value_final.ipynb).
+A Jupyter notebook for this post can be found on [github](https://github.com/wrapgenius/correlated_noise_notebooks/blob/master/estimating_matchup_value_final.ipynb).
 
 ## Algorithm
 
@@ -33,13 +31,14 @@ Required data:
 2. Retrosheet Schedule.  https://www.retrosheet.org/schedule/
 
 Steps:
-1. Import a Schedule
-2. Import Season Stats to Infer true-talent
-3. Specify Simulation Details
-4. Loop <br>
-    a. Season Simulations <br>
-    b. Determine Rankings
-5. Analyze Outcomes
+1. Import a schedule
+2. Import season stats to infer true-talent
+3. Specify simulation details
+4. Run simulation over N seasons
+5. Determine simulation rankings
+6. Analyze outcomes
+
+#### [And if you're not interested in the code, scroll down to the plots!]
 
 ## Python packages
 We start by importing some standard Python packages.  
@@ -411,35 +410,44 @@ Simulation requires four steps:
 3. Import schedule from Retrosheet.
 4. Pass schedule and simulation details into simulate_season.  
 
+#### 1. Define data paths
 
 ```python
-# 1 - Define Data paths
 retrosheet_path = '/data/baseball/Retrosheet/'
 lahman_path = '/Users/marcoviero/Code/Python/Modules/git_repositories/baseball-archive-sqlite/'
+```
 
-# 2 - Define test for the Houston Astros, with 3% nudge.
+#### 2. Define test for the Houston Astros, with 3% nudge.
+
+
+```python
+year = 2016
 test_team  = 'HOU' # AL Houston Astros
 test_nudge = 0.03  # 3%
 number_of_simulation_seasons = 10
 ```
 
+#### 3. Import a Schedule from Retrosheet
+
 
 ```python
-# 3 - Import a Schedule from Retrosheet
 sched_df = import_retrosheet_schedule(year = year, retrosheet_path = retrosheet_path)
 ```
 
+#### 4. Pass schedule and details into simulate_season
+
 
 ```python
-# 4 - Pass schedule and details into simulate_season
 test_sim_p03 = simulate_season(sched_df, year = year, path_lahman_sqlite = lahman_path, num_seasons=number_of_simulation_seasons, team_nudges = {test_team:test_nudge} )
 ```
 
-# Inspect Results of Test Simulation
+## Inspect the results of the test simulation of 10 seasons
+
+#### Division Records
+We can access division records easily, where output is for all simulated seasons.
 
 
 ```python
-# Inspect Division Records
 test_sim_p03.standings['AL']['Division_Record']['West']
 ```
 
@@ -547,10 +555,11 @@ test_sim_p03.standings['AL']['Division_Record']['West']
 </div>
 
 
+#### League Records
+League records are equally easy to access; again all simulated seasons are displayed.  
 
 
 ```python
-#Inspect League Records
 test_sim_p03.standings['AL']['League_Record']
 ```
 
@@ -789,15 +798,11 @@ test_sim_p03.standings['AL']['League_Record']
 
 
 
-
+#### Playoff Teams
+See which teams make the playoffs in each season simulation.  
 ```python
-# See which teams make the playoffs in each season simulation
 test_sim_p03.standings['AL']['Playoff_Teams']
 ```
-
-
-
-
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -899,10 +904,11 @@ test_sim_p03.standings['AL']['Playoff_Teams']
 </div>
 
 
+#### Division wins per team (AL)
+For each of the 10 simulations, the division winners are tallied.
 
 
 ```python
-# Inspect total division wins per team in the simulation (AL)
 test_sim_p03.division_wins['AL']
 ```
 
@@ -915,9 +921,11 @@ test_sim_p03.division_wins['AL']
 
 
 
+#### Division wins per team (NL)
+Similarly, the total division wins for NL teams is easily accessed.  
+
 
 ```python
-# Inspect total division wins per team in the simulation (NL)
 test_sim_p03.division_wins['NL']
 ```
 
@@ -931,8 +939,11 @@ test_sim_p03.division_wins['NL']
 
 
 
+#### Playoff appearances per team
+Playoff appearance is the ultimate measure, and knowing how often teams make the playoffs is easily attained.
+
+
 ```python
-# See how often teams make the playoffs.
 test_sim_p03.playoff_appearances['AL']
 ```
 
@@ -961,34 +972,44 @@ for any _single_ game, team_true_talent is increased by (1+nudge_factor/100), so
 
 However, if we suppose boosting is zero-sum, then we have to choose which games to nudge positively or negatively.  
 
+#### 1. Define data paths
+
 
 ```python
-# Data paths
 retrosheet_path = '/data/baseball/Retrosheet/'
 lahman_path = '/Users/marcoviero/Code/Python/Modules/git_repositories/baseball-archive-sqlite/'
 ```
 
-
-```python
-# Import a Schedule from Retrosheet
-sched_df = import_retrosheet_schedule(year = year, retrosheet_path = retrosheet_path)
-```
+#### 2. Define simulation for the Toronto Blue Jays, with 10 nudges from 0 to 18%.
 
 
 ```python
-# Define simulation for the Toronto Blue Jays, with 10 nudges from 0 to 18%.
 nudge_team = 'TOR'
 year = 2016
 num_season_sims = 10000
 nudge_vals = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+```
+
+#### 3. Import a Schedule from Retrosheet
+
+
+```python
+sched_df = import_retrosheet_schedule(year = year, retrosheet_path = retrosheet_path)
+```
+
+#### 4. Pass schedule and details into simulate_season
+
+
+```python
 zero_sum_sims = {}
 for inudge in nudge_vals:
-    print(inudge)
     zero_sum_sims[inudge] = simulate_season(sched_df, year = year, path_lahman_sqlite = lahman_path, num_seasons=num_season_sims, team_nudges = {nudge_team:inudge/100} )
 ```
 
+### Nudging should not change the total number of wins, rather, it should shift those wins to within the division.  
+##### But is that true?  Here we check that nudging is indeed a zero-sum effect by plotting histograms of wins in each simulated season, and for each nudge factor, and confirm that total wins remains the same for different nudge levels.
+
 ```python
-# Check that nudging is indeed a zero-sum effect by making sure total wins remains the same for different nudge levels.
 plt.figure(figsize=(10,6))
 sns.set_palette(sns.color_palette("coolwarm",len(zero_sum_sims)))
 ic = 0
@@ -1015,9 +1036,10 @@ print("""
 ![png](/assets/images/estimating_matchup_value_final_files/estimating_matchup_value_final_34_1.png)
 
 
+### Check change in probability of Toronto winning the division.  
+##### Winning the division is the preferred way to get to the playoffs, so we check to see if the odds of winning the division change with nudging. They do.  
 
 ```python
-# Check change in probability of Toronto winning the division.  
 plt.figure(figsize=(10,6))
 sns.set_palette(sns.color_palette("coolwarm",len(zero_sum_sims)))
 division_win_prob = {}
@@ -1044,9 +1066,9 @@ print("""
 ![png](/assets/images/estimating_matchup_value_final_files/estimating_matchup_value_final_35_1.png)
 
 
+### Compare odds of making the playoff by winning the division or winning the wild card.
 
 ```python
-# Compare odds of making the playoff by winning the division or winning the wild card.
 plt.figure(figsize=(10,6))
 sns.set_palette(sns.color_palette("cubehelix", 3))
 y_playoff_appearance = np.array([zero_sum_sims[i].playoff_appearances['AL'][nudge_team]/num_season_sims for i in nudge_vals])
@@ -1064,23 +1086,26 @@ plt.title(nudge_team+' Playoff Probabilities');
 print("""
     Toronto's playoff odds rise {0:0.0f}%, from {1:.2f} to {2:.2f}, which is roughly
     similar to the odds of winning the division, which rise from {3:.2f} to {4:.2f}.
-    Wildcard appearances, on the other hand, decrease as more divisions are won, but
-    the net playoff appearances is nonetheless still positive.   
+    Wildcard appearances, on the other hand, decrease as more divisions are won, which
+    is the result of both the extra beating on wildcard contenders like Baltimore, as
+    well as the decrease in strength of Toronto as an opponent outside of their division.  
     """.format((y_playoff_appearance[-1]-y_playoff_appearance[0])*100,y_playoff_appearance[0],y_playoff_appearance[-1],y_division_wins[0],y_division_wins[-1]))
 ```
 
 
         Toronto's playoff odds rise 4%, from 0.51 to 0.56, which is roughly
         similar to the odds of winning the division, which rise from 0.26 to 0.31.
-        Wildcard appearances, on the other hand, decrease as more divisions are won, but
-        the net playoff appearances is nonetheless still positive.   
+        Wildcard appearances, on the other hand, decrease as more divisions are won, which
+        is the result of both the extra beating on wildcard contenders like Baltimore, as
+        well as the decrease in strength of Toronto as an opponent outside of their division.  
 
 
 
 
 ![png](/assets/images/estimating_matchup_value_final_files/estimating_matchup_value_final_36_1.png)
 
-
+### Compare odds of making the playoffs vs. impact in other divisions
+##### Nudging changes the odds inside the division, but does it spill over into other divisions as the wins and losses get redistributed?
 
 ```python
 plt.figure(figsize=(14,6))
